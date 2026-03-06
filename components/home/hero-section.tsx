@@ -1,122 +1,150 @@
-'use client'
+'use client';
 
-import { motion } from 'framer-motion'
-import Link from 'next/link'
-import { useState } from 'react'
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { fadeInRise, lineReveal, premiumEasing } from '@/lib/animations';
 
 export function HeroSection() {
-  const [isHovered, setIsHovered] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start start', 'end start'],
+  });
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: 'easeOut' },
-    },
-  }
+  // Parallax the hero image slower than the scroll
+  const imageY = useTransform(scrollYProgress, [0, 1], ['0vh', '40vh']);
+  const fadeOut = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
 
   return (
-    <div className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-background pt-20">
-      <motion.div
-        className="relative z-10 max-w-5xl mx-auto px-6 text-center py-20 md:py-32"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        {/* Main headline - Large, elegant */}
-        <motion.h1
-          variants={itemVariants}
-          className="text-6xl md:text-8xl font-display leading-tight text-foreground mb-12 md:mb-16"
-        >
-          The Himalayas were never meant to be rushed.
-        </motion.h1>
+    <div ref={containerRef} className="relative w-full bg-background selection:bg-accent selection:text-foreground">
 
-        {/* Subheadline - Flowing narrative */}
-        <motion.div
-          variants={itemVariants}
-          className="space-y-6 max-w-3xl mx-auto mb-16"
-        >
-          <p className="text-xl md:text-2xl text-foreground leading-relaxed">
-            Most people visit the mountains.
-          </p>
-
-          <div className="space-y-4">
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              They tick a list.
-            </p>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              Take a photo.
-            </p>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              Upload a reel.
-            </p>
-          </div>
-
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed pt-4">
-            Then say they've <em className="text-foreground font-medium">"done Spiti"</em>.
-          </p>
-
-          <div className="py-8 border-t border-b border-border/50">
-            <p className="text-xl text-foreground leading-relaxed">
-              But the Himalayas don't work like that.
-            </p>
-          </div>
-
-          <div className="space-y-3 pt-4">
-            <p className="text-lg text-muted-foreground">
-              They reward time.
-            </p>
-            <p className="text-lg text-muted-foreground">
-              Patience.
-            </p>
-            <p className="text-lg text-muted-foreground">
-              And people who respect them.
-            </p>
-          </div>
+      {/* 1. The Cinematic Pinned Hero */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden z-0">
+        <motion.div style={{ y: imageY }} className="absolute inset-0 w-full h-full">
+          <Image
+            src="/placeholder.jpg"
+            alt="The Himalayan Range"
+            fill
+            className="object-cover"
+            priority
+          />
+          {/* Vignette map */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-background/90" />
         </motion.div>
 
-        {/* CTA Button */}
-        <motion.div variants={itemVariants} className="mt-16">
-          <Link href="/trips" className="inline-block group">
-            <motion.div
-              className="px-8 py-4 bg-accent text-accent-foreground font-medium text-lg border-2 border-accent"
-              whileHover={{ 
-                scale: 1.02,
-                backgroundColor: 'transparent',
-                color: 'var(--accent)',
-              }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.3 }}
+        <motion.div
+          style={{ opacity: fadeOut }}
+          className="absolute inset-0 flex flex-col justify-center items-center text-center px-6 z-10"
+        >
+          <div className="overflow-hidden">
+            <motion.h1
+              initial="hidden"
+              animate="visible"
+              variants={lineReveal}
+              className="text-white font-display uppercase font-light text-[10vw] leading-[0.9] tracking-tight mix-blend-overlay"
             >
-              Begin Your Journey
-            </motion.div>
-          </Link>
-        </motion.div>
+              The Ethereal <br /> Journey
+            </motion.h1>
+          </div>
+          <motion.p
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1.5, ease: premiumEasing, delay: 0.6 }}
+            className="text-white/80 mt-8 font-sans uppercase tracking-[0.3em] text-xs md:text-sm mix-blend-overlay"
+          >
+            Mountain Wisdom. Authentic Connection.
+          </motion.p>
 
-        {/* Scroll indicator */}
-        <motion.div
-          className="mt-20 md:mt-28"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2.5, repeat: Infinity }}
-        >
-          <p className="text-sm text-muted-foreground mb-4">Scroll to explore</p>
-          <svg className="w-6 h-6 text-muted-foreground mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 2, delay: 1.2 }}
+            className="absolute bottom-12 flex flex-col items-center gap-4 text-white/50 mix-blend-overlay"
+          >
+            <span className="text-xs uppercase tracking-[0.2em]">Scroll</span>
+            <div className="w-[1px] h-12 bg-white/30 animate-pulse-slow" />
+          </motion.div>
         </motion.div>
-      </motion.div>
+      </div>
+
+      {/* 2. The Narrative Copy (Absolutely preserved, but structurally redesigned) */}
+      <div className="relative z-10 w-full min-h-screen bg-background flex flex-col items-center pt-32 pb-48 px-6">
+        <div className="max-w-4xl mx-auto text-center w-full">
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInRise}
+            className="mb-32"
+          >
+            <h2 className="font-display leading-[1.1] text-foreground mb-16">
+              The Himalayas were never meant to be rushed.
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-32 text-left max-w-5xl mx-auto">
+            {/* Left Column - Fast travel mindset */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={fadeInRise}
+              className="space-y-6"
+            >
+              <p className="text-2xl text-foreground font-display">
+                Most people visit the mountains.
+              </p>
+              <div className="space-y-2 border-l-2 border-border pl-6">
+                <p className="text-lg text-muted-foreground">They tick a list.</p>
+                <p className="text-lg text-muted-foreground">Take a photo.</p>
+                <p className="text-lg text-muted-foreground">Upload a reel.</p>
+              </div>
+              <p className="text-xl text-muted-foreground italic">
+                Then say they've "done Spiti".
+              </p>
+            </motion.div>
+
+            {/* Right Column - The Ethereal mindset */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-100px" }}
+              variants={fadeInRise}
+              className="space-y-6 md:mt-24"
+            >
+              <p className="text-3xl text-foreground font-display leading-[1.2]">
+                But the Himalayas don't work like that.
+              </p>
+              <div className="space-y-2 text-muted-foreground text-lg">
+                <p>They reward time.</p>
+                <p>Patience.</p>
+                <p>And people who respect them.</p>
+              </div>
+            </motion.div>
+          </div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInRise}
+            className="mt-48 flex justify-center"
+          >
+            <Link href="/trips">
+              <span className="group relative inline-flex items-center gap-4 text-foreground text-lg tracking-wide uppercase font-sans">
+                <span className="relative z-10 transition-transform duration-500 ease-[0.22,1,0.36,1] group-hover:-translate-x-2">
+                  Begin Your Journey
+                </span>
+                <span className="w-12 h-[1px] bg-foreground transition-all duration-500 ease-[0.22,1,0.36,1] group-hover:w-20" />
+              </span>
+            </Link>
+          </motion.div>
+
+        </div>
+      </div>
     </div>
-  )
+  );
 }
