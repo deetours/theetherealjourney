@@ -22,7 +22,7 @@ export default function PinnedHero() {
 
                 <motion.div style={{ y: imageY }} className="absolute inset-0 w-full h-full">
                     <Image
-                        src="/placeholder.jpg" // Note: Fallback placeholder, needs to be replaced later
+                        src="/home-hero.jpg"
                         alt="Deep Himalayan Mountain Range"
                         fill
                         className="object-cover"

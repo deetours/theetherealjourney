@@ -7,7 +7,7 @@ export const STORY_DATA = [
         id: "the-monks-of-key",
         title: "Silence At 14,000 Feet",
         excerpt: "We spent three days inside Key Monastery. No phones. No itineraries. Just the sound of wind against stone and the rhythmic chanting of eighty monks who have realized rushing is a sickness.",
-        imageSrc: "/placeholder.jpg",
+        imageSrc: "/stories-landscape-1.jpg",
         date: "OCT 2024",
         location: "SPITI VALLEY",
         content: [
@@ -69,7 +69,7 @@ export const STORY_DATA = [
         id: "zanskar-frozen-river",
         title: "Where Bones Argue With Faith",
         excerpt: "The trail to Shrikhand Mahadev does not begin with excitement. It begins with doubt.",
-        imageSrc: "/placeholder.jpg",
+        imageSrc: "/stories-portrait-1.jpg",
         date: "JAN 2025",
         location: "SHRIKHAND MAHADEV",
         content: [
@@ -151,7 +151,7 @@ export const STORY_DATA = [
         id: "nomads-of-changthang",
         title: "People Of The Wind",
         excerpt: "The Changpa nomads do not fight the extreme altitude; they move with it. Their pashmina goats dictate their lives. A documentation of surviving at the edge of the habitable world.",
-        imageSrc: "/placeholder.jpg",
+        imageSrc: "/stories-landscape-2.jpg",
         date: "AUG 2024",
         location: "CHANGTHANG",
         content: [

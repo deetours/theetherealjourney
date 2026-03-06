@@ -24,7 +24,7 @@ export function HeroSection() {
       <div className="sticky top-0 h-screen w-full overflow-hidden z-0">
         <motion.div style={{ y: imageY }} className="absolute inset-0 w-full h-full">
           <Image
-            src="/placeholder.jpg"
+            src="/home-hero.jpg"
             alt="The Himalayan Range"
             fill
             className="object-cover"

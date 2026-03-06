@@ -45,15 +45,15 @@ export function StoryArticleRenderer({ story }: { story: StoryData }) {
     const fadeOut = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
     return (
-        <div className="relative min-h-screen bg-background text-foreground antialiased selection:bg-accent selection:text-foreground">
+        <div className="relative min-h-screen bg-background text-foreground antialiased selection:bg-accent selection:text-foreground overflow-x-hidden">
             <Navigation />
 
             {/* 1. The Pinned Reading Hero */}
             <section ref={heroRef} className="relative h-[150vh] w-full bg-background z-0">
-                <div className="sticky top-0 h-screen w-full overflow-hidden">
+                <div className="sticky top-0 h-screen w-full overflow-hidden bg-background">
 
                     {/* Parallax Image */}
-                    <motion.div style={{ y: imageY }} className="absolute inset-0 w-full h-full">
+                    <motion.div style={{ y: imageY }} className="absolute inset-0 w-full h-full will-change-transform">
                         <Image
                             src={story.imageSrc}
                             alt={story.title}
@@ -62,7 +62,7 @@ export function StoryArticleRenderer({ story }: { story: StoryData }) {
                             priority
                         />
                         {/* Dark vignette to ensure high-contrast reading text later */}
-                        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-background" />
+                        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/20 to-background" />
                     </motion.div>
 
                     <motion.div
@@ -97,7 +97,7 @@ export function StoryArticleRenderer({ story }: { story: StoryData }) {
             </section>
 
             {/* 2. The Photo-Essay Body (Z-index 10 pulls it over the pinned hero) */}
-            <main className="relative z-10 w-full bg-background pt-32 pb-48 px-6 md:px-12">
+            <main className="relative z-10 w-full bg-background -mt-[50vh] pt-32 pb-48 px-6 md:px-12 shadow-[0_-20vh_20vh_rgba(245,244,240,1)]">
                 <article className="max-w-3xl mx-auto flex flex-col gap-12 md:gap-16">
 
                     {/* Back button logic */}
