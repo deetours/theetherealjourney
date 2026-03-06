@@ -5,41 +5,20 @@ import { Navigation } from '@/components/navigation';
 import { Footer } from '@/components/footer';
 import { StoryBlock } from '@/components/features/story-block';
 import { fadeInRise, premiumEasing } from '@/lib/animations';
-
-const STORIES = [
-    {
-        id: "the-monks-of-key",
-        title: "Silence At 14,000 Feet",
-        excerpt: "We spent three days inside Key Monastery. No phones. No itineraries. Just the sound of wind against stone and the rhythmic chanting of eighty monks who have realized rushing is a sickness.",
-        imageSrc: "/placeholder.jpg",
-        date: "OCT 2024",
-        location: "SPITI VALLEY",
-        isPortrait: false, // Massive cinematic landscape
-        alignment: "left" as const,
-    },
-    {
-        id: "zanskar-frozen-river",
-        title: "Walking The Chadar",
-        excerpt: "When the Zanskar river freezes, it becomes the only highway connecting isolated villages to the rest of Ladakh. It is a walk on glass over black water. It terrifies and purifies simultaneously.",
-        imageSrc: "/placeholder.jpg",
-        date: "JAN 2025",
-        location: "ZANSKAR",
-        isPortrait: true, // Tight, claustrophobic portrait
-        alignment: "right" as const,
-    },
-    {
-        id: "nomads-of-changthang",
-        title: "People Of The Wind",
-        excerpt: "The Changpa nomads do not fight the extreme altitude; they move with it. Their pashmina goats dictate their lives. A documentation of surviving at the edge of the habitable world.",
-        imageSrc: "/placeholder.jpg",
-        date: "AUG 2024",
-        location: "CHANGTHANG",
-        isPortrait: false,
-        alignment: "center" as const,
-    }
-];
+import { STORY_DATA } from '@/lib/data/stories';
 
 export default function StoriesPage() {
+    // Inject the presentation layer metadata into our story data
+    // so we get the asymmetrical film-strip rendering
+    const FILM_STRIP_RENDER_DATA = STORY_DATA.map((story, index) => {
+        // Pattern: Landscape (Left), Portrait (Right), Landscape (Center)
+        return {
+            ...story,
+            isPortrait: index % 3 === 1,
+            alignment: index % 3 === 0 ? "left" : (index % 3 === 1 ? "right" : "center") as "left" | "right" | "center"
+        };
+    });
+
     return (
         <div className="relative min-h-screen bg-background text-foreground font-sans antialiased selection:bg-accent selection:text-foreground">
             <Navigation />
@@ -74,7 +53,7 @@ export default function StoriesPage() {
 
             {/* The Asymmetric Film Strip */}
             <main className="w-full max-w-screen-2xl mx-auto px-6 md:px-12 pb-48 space-y-32 md:space-y-48">
-                {STORIES.map((story, index) => (
+                {FILM_STRIP_RENDER_DATA.map((story, index) => (
                     <motion.div
                         key={story.id}
                         initial="hidden"
