@@ -1,43 +1,45 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Navigation } from '@/components/navigation'
 import { Footer } from '@/components/footer'
 import { useInView } from 'react-intersection-observer'
 import { ArrowRight } from 'lucide-react'
+import { supabase } from '@/lib/supabase'
 
-const trips = [
-  {
-    id: 1,
-    title: 'Spiti Valley Expedition',
-    description: 'The journey that started it all. Ancient monasteries, high altitude deserts, roads that feel like they belong to another planet.',
-    difficulty: 'Moderate',
-    duration: '7 days',
-    altitude: '4,500m',
-    shortDesc: 'Ancient monasteries and high altitude deserts',
-  },
-  {
-    id: 2,
-    title: 'Ladakh Motorcycle Journey',
-    description: 'The ride every motorcyclist dreams about. High passes, frozen lakes, and silence you won\'t find anywhere else.',
-    difficulty: 'Challenging',
-    duration: '10 days',
-    altitude: '5,602m',
-    shortDesc: 'High passes and legendary motorcycle roads',
-  },
-  {
-    id: 3,
-    title: 'Zanskar Discovery',
-    description: 'For people who think they\'ve "done Ladakh". Trust us. You haven\'t seen this yet.',
-    difficulty: 'Challenging',
-    duration: '8 days',
-    altitude: '4,800m',
-    shortDesc: 'The hidden jewel beyond Ladakh',
-  },
-]
+type Trip = {
+  id: number
+  title: string
+  description: string
+  difficulty: string
+  duration: string
+  altitude: string
+  shortDesc: string
+}
 
 export default function TripsPage() {
+  const [trips, setTrips] = useState<Trip[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchTrips() {
+      const { data, error } = await supabase
+        .from('trips')
+        .select('*')
+        .order('id')
+
+      if (data) {
+        setTrips(data)
+      } else if (error) {
+        console.error('Error fetching trips:', error)
+      }
+      setLoading(false)
+    }
+    fetchTrips()
+  }, [])
+
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.2,
@@ -160,7 +162,7 @@ export default function TripsPage() {
           <h2 className="text-5xl md:text-6xl font-display leading-tight text-foreground mb-16">
             A Small Disclaimer
           </h2>
-          
+
           <div className="space-y-12">
             <p className="text-2xl md:text-3xl font-display text-foreground leading-tight">
               If you're looking for
