@@ -27,8 +27,8 @@ export function Navigation() {
   }, [isOpen])
 
   const navItems = [
-    { label: 'About', href: '/about' },
     { label: 'Trips', href: '/trips' },
+    { label: 'Rentals', href: '/rentals' },
     { label: 'Stories', href: '/stories' },
     { label: 'Contact', href: '/contact', mobileOnly: true },
   ]

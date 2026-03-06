@@ -138,8 +138,17 @@ export default function TripsPage() {
                       </div>
 
                       {/* CTA */}
-                      <div className="flex items-center text-accent font-medium text-sm group-hover:gap-2 transition-all gap-1">
-                        Explore <ArrowRight size={16} />
+                      <div className="flex items-center gap-4 flex-wrap">
+                        <div className="flex items-center text-accent font-medium text-sm group-hover:gap-2 transition-all gap-1">
+                          Explore <ArrowRight size={16} />
+                        </div>
+                        <a
+                          href={`/inquire?trip=${trip.id}`}
+                          onClick={e => e.stopPropagation()}
+                          className="text-xs text-secondary border border-border/50 px-3 py-1.5 hover:border-accent hover:text-accent transition-colors"
+                        >
+                          Ask Tej →
+                        </a>
                       </div>
                     </div>
                   </div>
