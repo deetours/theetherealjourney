@@ -3,8 +3,9 @@ import { notFound } from 'next/navigation';
 import { StoryArticleRenderer } from '@/components/features/story-article-renderer';
 
 // Next.js metadata generation for SEO
-export async function generateMetadata({ params }: { params: { id: string } }) {
-    const story = STORY_DATA.find(s => s.id === params.id);
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+    const story = STORY_DATA.find(s => s.id === id);
     if (!story) return { title: 'Story Not Found | The Ethereal Journey' };
 
     return {
@@ -20,8 +21,9 @@ export function generateStaticParams() {
     }));
 }
 
-export default function StoryPage({ params }: { params: { id: string } }) {
-    const story = STORY_DATA.find(s => s.id === params.id);
+export default async function StoryPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+    const story = STORY_DATA.find(s => s.id === id);
 
     if (!story) {
         notFound();
