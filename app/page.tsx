@@ -49,8 +49,8 @@ export default function Home() {
         <PauseSection />
         <ProblemSection />
         <RevelationSection />
-        <ProofSection />
         <TripsPreviewSection />
+        <ProofSection />
         <FinalCTASection />
       </div>
 

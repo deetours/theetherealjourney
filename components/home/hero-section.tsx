@@ -5,6 +5,7 @@ import { useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { fadeInRise, lineReveal, premiumEasing } from '@/lib/animations';
+import { Map, Tent, Bike } from 'lucide-react';
 
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -56,6 +57,28 @@ export function HeroSection() {
           >
             Mountain Wisdom. Authentic Connection.
           </motion.p>
+
+          <motion.div
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 1.5, ease: premiumEasing, delay: 0.9 }}
+            className="flex items-center gap-8 mt-12 text-white/60 mix-blend-overlay"
+          >
+            <div className="flex flex-col items-center gap-2">
+              <Bike size={24} strokeWidth={1} />
+              <span className="text-[10px] uppercase tracking-widest">Motorcycle</span>
+            </div>
+            <div className="w-[1px] h-8 bg-white/20" />
+            <div className="flex flex-col items-center gap-2">
+              <Map size={24} strokeWidth={1} />
+              <span className="text-[10px] uppercase tracking-widest">Expedition</span>
+            </div>
+            <div className="w-[1px] h-8 bg-white/20" />
+            <div className="flex flex-col items-center gap-2">
+              <Tent size={24} strokeWidth={1} />
+              <span className="text-[10px] uppercase tracking-widest">Trekking</span>
+            </div>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0 }}

@@ -45,7 +45,7 @@ export function ProblemSection() {
   }
 
   return (
-    <section ref={ref} className="relative w-full py-32 md:py-48 bg-background">
+    <section ref={ref} className="relative w-full py-32 md:py-48 bg-stark-dark text-stark-dark-foreground transition-colors duration-1000">
       <div className="max-w-4xl mx-auto px-6">
         {/* Intro Statement */}
         <motion.div
@@ -57,7 +57,7 @@ export function ProblemSection() {
           <h2 className="text-5xl md:text-6xl font-display leading-tight mb-6">
             The Himalayas became a trend.
           </h2>
-          <p className="text-xl text-muted-foreground leading-relaxed">
+          <p className="text-xl text-stark-dark-foreground/70 leading-relaxed">
             And suddenly everyone was an "expert".
           </p>
         </motion.div>
@@ -75,10 +75,10 @@ export function ProblemSection() {
               variants={itemVariants}
               className="border-l-4 border-accent pl-8"
             >
-              <h3 className="text-2xl font-display font-semibold text-foreground mb-3">
+              <h3 className="text-2xl font-display font-semibold text-stark-dark-foreground mb-3">
                 {problem.title}
               </h3>
-              <p className="text-lg text-muted-foreground leading-relaxed">
+              <p className="text-lg text-stark-dark-foreground/70 leading-relaxed">
                 {problem.description}
               </p>
             </motion.div>
@@ -101,7 +101,7 @@ export function ProblemSection() {
             <br />
             knowing the mountains.
           </p>
-          <p className="text-xl text-muted-foreground font-light">
+          <p className="text-xl text-stark-dark-foreground/70 font-light">
             Interesting.
           </p>
         </motion.div>
@@ -113,7 +113,7 @@ export function ProblemSection() {
           animate={inView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
         >
-          <p className="text-lg text-muted-foreground leading-relaxed">
+          <p className="text-lg text-stark-dark-foreground/70 leading-relaxed">
             Meanwhile the locals watched.
             <br />
             And we remembered every road.

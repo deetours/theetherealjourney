@@ -83,7 +83,7 @@ export function TripsPreviewSection() {
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-12"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
           variants={containerVariants}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
@@ -132,6 +132,47 @@ export function TripsPreviewSection() {
               </Link>
             </motion.div>
           ))}
+
+          {/* Hardcoded Rentals Card */}
+          <motion.div variants={itemVariants} className="group cursor-pointer h-full">
+            <Link href="/rentals">
+              <div className="h-full flex flex-col border-b-4 border-stark-dark pb-6 hover:opacity-80 transition-opacity duration-300">
+                <div className="aspect-video bg-gradient-to-br from-stark-dark to-stark-dark/90 rounded mb-6 overflow-hidden relative">
+                  <div className="absolute inset-0 bg-secondary/10 opacity-20 mix-blend-overlay"></div>
+                  <div className="w-full h-full flex items-center justify-center relative z-10">
+                    <span className="text-xl text-stark-dark-foreground font-display tracking-widest uppercase">Machines</span>
+                  </div>
+                </div>
+
+                <h3 className="text-2xl font-display text-foreground mb-4">
+                  Ride Your Own Path
+                </h3>
+
+                <p className="text-muted-foreground leading-relaxed mb-8 flex-grow">
+                  For those who don't need a guide, just the right machine. Fleet of meticulously maintained Himalayan 450s and 411s.
+                </p>
+
+                <div className="space-y-2 mb-6 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Type</span>
+                    <span className="text-foreground font-medium">Motorcycles</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Location</span>
+                    <span className="text-foreground font-medium">Manali / Leh</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Support</span>
+                    <span className="text-foreground font-medium">24/7 Backup</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center text-foreground font-medium group-hover:gap-3 transition-all gap-2">
+                  View Fleet <ArrowRight size={18} />
+                </div>
+              </div>
+            </Link>
+          </motion.div>
         </motion.div>
 
         <motion.p

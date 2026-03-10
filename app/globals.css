@@ -5,36 +5,46 @@
 
 :root {
   /* THE ETHEREAL JOURNEY: $100K Cinematic Color System */
-  
+
   /* Primary Alabaster/Sand - Eliminating harsh pure whites */
   --background: #F5F4F0;
-  --foreground: #1C1A17; /* Deep Charcoal instead of #000 */
-  
-  --card: #EAE9E4; /* Subtle tonal shift for borders/cards */
+  --foreground: #1C1A17;
+  /* Deep Charcoal instead of #000 */
+
+  --card: #EAE9E4;
+  /* Subtle tonal shift for borders/cards */
   --card-foreground: #1C1A17;
-  
+
   --popover: #F5F4F0;
   --popover-foreground: #1C1A17;
-  
+
   /* Wet stone and Sage - Muted accents, no aggressive blues/reds */
   --primary: #1C1A17;
   --primary-foreground: #F5F4F0;
-  
+
   --secondary: #73716A;
   --secondary-foreground: #F5F4F0;
-  
+
   --muted: #EAE9E4;
   --muted-foreground: #73716A;
-  
-  --accent: #818B7E; /* Sage Green */
+
+  --accent: #818B7E;
+  /* Sage Green */
   --accent-foreground: #F5F4F0;
-  
-  --destructive: #7F2013; /* Desaturated earthy red */
+
+  --destructive: #7F2013;
+  /* Desaturated earthy red */
   --destructive-foreground: #F5F4F0;
-  
+
   --border: #D6D4CD;
   --input: #EAE9E4;
   --ring: #1C1A17;
+
+  /* New Storytelling Colors */
+  --stark-dark: #1a1c1a;
+  --stark-dark-foreground: #F5F4F0;
+  --monastic-red: #8A2E2E;
+  --prayer-flag-blue: #2B4C7E;
 
   /* Chart Colors (toned down) */
   --chart-1: #1C1A17;
@@ -44,38 +54,47 @@
   --chart-5: #EAE9E4;
 
   /* No rounded corners by default for an editorial magazine look */
-  --radius: 0rem; 
+  --radius: 0rem;
 }
 
 .dark {
   /* Obsidian and Stone - Eliminating harsh pure blacks */
-  --background: #0A0A0A; /* Deepest black but not #000 */
-  --foreground: #F9F9F6; /* Off-white for less eye-strain */
-  
+  --background: #0A0A0A;
+  /* Deepest black but not #000 */
+  --foreground: #F9F9F6;
+  /* Off-white for less eye-strain */
+
   --card: #121110;
   --card-foreground: #F9F9F6;
-  
+
   --popover: #121110;
   --popover-foreground: #F9F9F6;
-  
+
   --primary: #F9F9F6;
   --primary-foreground: #0A0A0A;
-  
+
   --secondary: #8E8B82;
   --secondary-foreground: #0A0A0A;
-  
+
   --muted: #1A1918;
   --muted-foreground: #8E8B82;
-  
-  --accent: #6C7A67; /* Deeper sage */
+
+  --accent: #6C7A67;
+  /* Deeper sage */
   --accent-foreground: #F9F9F6;
-  
+
   --destructive: #7F2013;
   --destructive-foreground: #F9F9F6;
-  
+
   --border: #2C2A26;
   --input: #1A1918;
   --ring: #F9F9F6;
+
+  /* New Storytelling Colors */
+  --stark-dark: #050505;
+  --stark-dark-foreground: #d4d4d4;
+  --monastic-red: #A33B3B;
+  --prayer-flag-blue: #3A5F90;
 }
 
 @theme inline {
@@ -98,6 +117,13 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+
+  /* Custom UI/UX Colors */
+  --color-stark-dark: var(--stark-dark);
+  --color-stark-dark-foreground: var(--stark-dark-foreground);
+  --color-monastic-red: var(--monastic-red);
+  --color-prayer-flag-blue: var(--prayer-flag-blue);
+
   --radius-sm: var(--radius);
   --radius-md: var(--radius);
   --radius-lg: var(--radius);
@@ -108,11 +134,12 @@
   * {
     @apply border-border outline-ring/50;
   }
-  
+
   html {
-    scroll-behavior: auto; /* Disabled for smooth framer scroll overrides */
+    scroll-behavior: auto;
+    /* Disabled for smooth framer scroll overrides */
   }
-  
+
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "cv02" on, "cv03" on, "cv04" on;
@@ -120,7 +147,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  
+
   /* Texture map - Premium feeling */
   body::before {
     content: '';
@@ -134,44 +161,52 @@
     z-index: 9999;
     mix-blend-mode: overlay;
   }
-  
+
   /* Fluid Typography Scale using Clamp */
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-display, serif);
-    font-weight: 400; /* Force light typography for high-end look */
+    font-weight: 400;
+    /* Force light typography for high-end look */
     line-height: 1.05;
     letter-spacing: -0.03em;
   }
-  
+
   h1 {
     font-size: clamp(3rem, 8vw, 7rem);
   }
-  
+
   h2 {
     font-size: clamp(2rem, 5vw, 4.5rem);
   }
-  
+
   h3 {
     font-size: clamp(1.5rem, 3vw, 2.75rem);
   }
-  
+
   h4 {
     font-size: clamp(1.25rem, 2vw, 1.75rem);
   }
-  
+
   p {
     font-size: clamp(0.95rem, 1.5vw, 1.15rem);
     line-height: 1.7;
     letter-spacing: 0.01em;
   }
-  
+
   /* Ultra thin scrollbar */
   ::-webkit-scrollbar {
     width: 4px;
   }
+
   ::-webkit-scrollbar-track {
     background: transparent;
   }
+
   ::-webkit-scrollbar-thumb {
     background: var(--foreground);
     opacity: 0.3;

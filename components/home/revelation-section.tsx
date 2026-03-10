@@ -10,7 +10,7 @@ export function RevelationSection() {
   })
 
   return (
-    <section ref={ref} className="relative w-full py-32 md:py-48 bg-background">
+    <section ref={ref} className="relative w-full py-32 md:py-48 bg-background transition-colors duration-1000">
       <div className="max-w-4xl mx-auto px-6">
         {/* Main revelation */}
         <motion.h2
@@ -36,6 +36,24 @@ export function RevelationSection() {
           <p className="text-xl text-foreground leading-relaxed">
             We were riding these roads.
           </p>
+
+          {/* Documentary Photography Grid Placeholder */}
+          <div className="relative my-16 w-full h-[400px] grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-secondary/10 flex items-center justify-center rounded-sm overflow-hidden relative group">
+              <div className="absolute inset-0 bg-accent/5 mix-blend-overlay group-hover:bg-transparent transition-colors duration-700"></div>
+              <p className="text-[10px] text-muted-foreground/60 uppercase tracking-widest">[Documentary Photo / Fixing Bike]</p>
+            </div>
+            <div className="grid grid-rows-2 gap-4">
+              <div className="bg-secondary/10 flex items-center justify-center rounded-sm overflow-hidden relative group">
+                <div className="absolute inset-0 bg-accent/5 mix-blend-overlay group-hover:bg-transparent transition-colors duration-700"></div>
+                <p className="text-[10px] text-muted-foreground/60 uppercase tracking-widest">[Photo / Waiting Out Storm]</p>
+              </div>
+              <div className="bg-secondary/10 flex items-center justify-center rounded-sm overflow-hidden relative group">
+                <div className="absolute inset-0 bg-accent/5 mix-blend-overlay group-hover:bg-transparent transition-colors duration-700"></div>
+                <p className="text-[10px] text-muted-foreground/60 uppercase tracking-widest">[Photo / Mud & Rain]</p>
+              </div>
+            </div>
+          </div>
 
           <p className="text-lg text-muted-foreground leading-relaxed space-y-2">
             <span className="block">Fixing bikes in small villages.</span>

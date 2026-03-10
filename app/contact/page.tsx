@@ -15,10 +15,8 @@ export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    phone: '',
-    location: '',
     trip: '',
-    message: '',
+    time: '',
   })
 
   const [submitted, setSubmitted] = useState(false)
@@ -43,10 +41,8 @@ export default function ContactPage() {
     setFormData({
       name: '',
       email: '',
-      phone: '',
-      location: '',
       trip: '',
-      message: '',
+      time: '',
     })
     setIsLoading(false)
 
@@ -93,148 +89,85 @@ export default function ContactPage() {
           transition={{ duration: 0.8 }}
         >
           {!submitted ? (
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Name */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={inView ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-              >
-                <label className="block text-sm font-medium text-foreground mb-3">
-                  Your Name
-                </label>
+            <form onSubmit={handleSubmit} className="relative z-10 pb-16">
+              <div className="text-3xl md:text-5xl font-display leading-[1.6] md:leading-[1.8] text-foreground mb-20 text-center">
+                Hi, my name is{' '}
                 <input
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-card border border-border rounded text-foreground placeholder-secondary/50 focus:outline-none focus:ring-2 focus:ring-accent transition-all"
-                  placeholder="Enter your name"
+                  className="bg-transparent border-b-2 border-border focus:border-foreground text-center focus:outline-none w-48 md:w-64 transition-colors placeholder-muted-foreground/30 text-foreground"
+                  placeholder="your name"
                 />
-              </motion.div>
-
-              {/* Email */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={inView ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ duration: 0.6, delay: 0.15 }}
-              >
-                <label className="block text-sm font-medium text-foreground mb-3">
-                  Email Address
-                </label>
+                . I'm looking to explore{' '}
+                <select
+                  name="trip"
+                  value={formData.trip}
+                  onChange={handleChange}
+                  required
+                  className="bg-transparent border-b-2 border-border focus:border-foreground text-center focus:outline-none w-auto transition-colors appearance-none cursor-pointer text-foreground"
+                >
+                  <option value="" disabled>select a region...</option>
+                  <option value="Spiti">Spiti Valley</option>
+                  <option value="Ladakh">Ladakh</option>
+                  <option value="Zanskar">Zanskar</option>
+                  <option value="Custom">Somewhere else</option>
+                </select>
+                {' '}in{' '}
+                <select
+                  name="time"
+                  value={formData.time}
+                  onChange={handleChange}
+                  required
+                  className="bg-transparent border-b-2 border-border focus:border-foreground text-center focus:outline-none w-auto transition-colors appearance-none cursor-pointer text-foreground"
+                >
+                  <option value="" disabled>select a season...</option>
+                  <option value="June">June</option>
+                  <option value="July">July</option>
+                  <option value="August">August</option>
+                  <option value="September">September</option>
+                  <option value="October">October</option>
+                </select>
+                . I'd love to chat more at{' '}
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 bg-card border border-border rounded text-foreground placeholder-secondary/50 focus:outline-none focus:ring-2 focus:ring-accent transition-all"
+                  className="bg-transparent border-b-2 border-border focus:border-foreground text-center focus:outline-none w-64 transition-colors placeholder-muted-foreground/30 text-foreground"
                   placeholder="your@email.com"
                 />
-              </motion.div>
+                .
+              </div>
 
-              {/* Phone */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={inView ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                <label className="block text-sm font-medium text-foreground mb-3">
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-card border border-border rounded text-foreground placeholder-secondary/50 focus:outline-none focus:ring-2 focus:ring-accent transition-all"
-                  placeholder="+91 98765 43210"
-                />
-              </motion.div>
-
-              {/* Location */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={inView ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ duration: 0.6, delay: 0.25 }}
-              >
-                <label className="block text-sm font-medium text-foreground mb-3">
-                  Where are you traveling from?
-                </label>
-                <input
-                  type="text"
-                  name="location"
-                  value={formData.location}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-card border border-border rounded text-foreground placeholder-secondary/50 focus:outline-none focus:ring-2 focus:ring-accent transition-all"
-                  placeholder="City, Country"
-                />
-              </motion.div>
-
-              {/* Trip Interest */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={inView ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-              >
-                <label className="block text-sm font-medium text-foreground mb-3">
-                  Which journey interests you?
-                </label>
-                <select
-                  name="trip"
-                  value={formData.trip}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-card border border-border rounded text-foreground focus:outline-none focus:ring-2 focus:ring-accent transition-all"
+              <div className="flex flex-col items-center gap-8 mt-16">
+                <motion.button
+                  type="submit"
+                  disabled={isLoading}
+                  initial={{ opacity: 0 }}
+                  animate={inView ? { opacity: 1 } : { opacity: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  whileHover={{ scale: isLoading ? 1 : 1.02 }}
+                  whileTap={{ scale: isLoading ? 1 : 0.98 }}
+                  className="px-12 py-5 bg-stark-dark text-stark-dark-foreground font-sans uppercase tracking-[0.2em] text-sm hover:bg-stark-dark/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed border border-stark-dark"
                 >
-                  <option value="">Select a trip...</option>
-                  <option value="Spiti Valley Expedition">Spiti Valley Expedition</option>
-                  <option value="Ladakh Motorcycle Journey">Ladakh Motorcycle Journey</option>
-                  <option value="Zanskar Discovery">Zanskar Discovery</option>
-                  <option value="Custom Journey">Something Custom</option>
-                </select>
-              </motion.div>
+                  {isLoading ? (
+                    <span className="flex items-center justify-center gap-2">
+                      <span className="inline-block w-4 h-4 border-2 border-stark-dark-foreground border-t-transparent rounded-full animate-spin"></span>
+                      Sending...
+                    </span>
+                  ) : (
+                    'Send the Signal'
+                  )}
+                </motion.button>
 
-              {/* Message */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={inView ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ duration: 0.6, delay: 0.35 }}
-              >
-                <label className="block text-sm font-medium text-foreground mb-3">
-                  Tell us about your journey
-                </label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={5}
-                  className="w-full px-4 py-3 bg-card border border-border rounded text-foreground placeholder-secondary/50 focus:outline-none focus:ring-2 focus:ring-accent transition-all resize-none"
-                  placeholder="What kind of experience are you looking for? Any specific dates or concerns?"
-                ></textarea>
-              </motion.div>
-
-              {/* Submit Button */}
-              <motion.button
-                type="submit"
-                disabled={isLoading}
-                initial={{ opacity: 0 }}
-                animate={inView ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                whileHover={{ scale: isLoading ? 1 : 1.02 }}
-                whileTap={{ scale: isLoading ? 1 : 0.98 }}
-                className="w-full px-8 py-4 bg-accent text-accent-foreground font-semibold rounded text-lg hover:bg-accent/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isLoading ? (
-                  <span className="flex items-center justify-center gap-2">
-                    <span className="inline-block w-4 h-4 border-2 border-accent-foreground border-t-transparent rounded-full animate-spin"></span>
-                    Sending...
-                  </span>
-                ) : (
-                  'Send the Signal'
-                )}
-              </motion.button>
+                <p className="text-sm text-muted-foreground font-sans tracking-wide">
+                  Reply expected within 24 hours (depending on mountain cell service).
+                </p>
+              </div>
             </form>
           ) : (
             <motion.div
@@ -276,7 +209,7 @@ export default function ContactPage() {
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
             Other ways to reach us
           </h2>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
