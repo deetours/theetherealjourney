@@ -95,10 +95,10 @@ export function TripsPreviewSection() {
               className="group cursor-pointer h-full"
             >
               <Link href={`/trips/${trip.id}`}>
-                <div className="h-full flex flex-col border-b-4 border-accent pb-6 hover:opacity-70 transition-opacity duration-300">
-                  <div className="aspect-video bg-gradient-to-br from-foreground/5 to-secondary/5 rounded mb-6 overflow-hidden">
+                <div className="h-full flex flex-col pt-8 pb-6 hover:opacity-70 transition-opacity duration-500 border-t border-border/40">
+                  <div className="aspect-video bg-gradient-to-br from-foreground/5 to-secondary/5 rounded-sm mb-6 overflow-hidden">
                     <div className="w-full h-full flex items-center justify-center">
-                      <span className="text-6xl text-accent/20">•</span>
+                      <span className="text-4xl text-accent/20 font-light">+</span>
                     </div>
                   </div>
 
@@ -136,11 +136,11 @@ export function TripsPreviewSection() {
           {/* Hardcoded Rentals Card */}
           <motion.div variants={itemVariants} className="group cursor-pointer h-full">
             <Link href="/rentals">
-              <div className="h-full flex flex-col border-b-4 border-stark-dark pb-6 hover:opacity-80 transition-opacity duration-300">
-                <div className="aspect-video bg-gradient-to-br from-stark-dark to-stark-dark/90 rounded mb-6 overflow-hidden relative">
+              <div className="h-full flex flex-col pt-8 pb-6 hover:opacity-80 transition-opacity duration-500 border-t border-stark-dark/40">
+                <div className="aspect-video bg-gradient-to-br from-stark-dark to-stark-dark/90 rounded-sm mb-6 overflow-hidden relative">
                   <div className="absolute inset-0 bg-secondary/10 opacity-20 mix-blend-overlay"></div>
                   <div className="w-full h-full flex items-center justify-center relative z-10">
-                    <span className="text-xl text-stark-dark-foreground font-display tracking-widest uppercase">Machines</span>
+                    <span className="text-sm text-stark-dark-foreground font-sans tracking-[0.2em] uppercase">Machines</span>
                   </div>
                 </div>
 

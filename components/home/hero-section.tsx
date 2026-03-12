@@ -14,8 +14,9 @@ export function HeroSection() {
     offset: ['start start', 'end start'],
   });
 
-  // Parallax the hero image slower than the scroll
+  // Parallax the hero image and scale it up to feel like driving into it
   const imageY = useTransform(scrollYProgress, [0, 1], ['0vh', '40vh']);
+  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.2]);
   const fadeOut = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
 
   return (
@@ -23,7 +24,7 @@ export function HeroSection() {
 
       {/* 1. The Cinematic Pinned Hero */}
       <div className="sticky top-0 h-screen w-full overflow-hidden z-0">
-        <motion.div style={{ y: imageY }} className="absolute inset-0 w-full h-full">
+        <motion.div style={{ y: imageY, scale: imageScale }} className="absolute inset-0 w-full h-full origin-bottom">
           <Image
             src="/home-hero.jpg"
             alt="The Himalayan Range"
@@ -32,7 +33,7 @@ export function HeroSection() {
             priority
           />
           {/* Vignette map */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-background/90" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/30 to-background/95 pointer-events-none" />
         </motion.div>
 
         <motion.div
@@ -44,25 +45,25 @@ export function HeroSection() {
               initial="hidden"
               animate="visible"
               variants={lineReveal}
-              className="text-white font-display uppercase font-light text-[10vw] leading-[0.9] tracking-tight mix-blend-overlay"
+              className="text-white font-display uppercase font-light text-5xl md:text-7xl lg:text-8xl leading-[1.1] tracking-tight max-w-5xl mx-auto drop-shadow-lg"
             >
-              The Ethereal <br /> Journey
+              Don't just visit the Himalayas. <br className="hidden md:block" /> Earn them.
             </motion.h1>
           </div>
           <motion.p
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 1.5, ease: premiumEasing, delay: 0.6 }}
-            className="text-white/80 mt-8 font-sans uppercase tracking-[0.3em] text-xs md:text-sm mix-blend-overlay"
+            transition={{ duration: 2, ease: premiumEasing, delay: 0.8 }}
+            className="text-white/90 mt-8 font-sans uppercase tracking-[0.2em] text-xs md:text-sm max-w-2xl mx-auto leading-relaxed drop-shadow-md"
           >
-            Mountain Wisdom. Authentic Connection.
+            The Ethereal Journey helps discerning riders experience un-rushed Himalayan expeditions without mass-tourism compromises.
           </motion.p>
 
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1.5, ease: premiumEasing, delay: 0.9 }}
-            className="flex items-center gap-8 mt-12 text-white/60 mix-blend-overlay"
+            className="flex items-center gap-8 mt-12 text-white/90 drop-shadow-md"
           >
             <div className="flex flex-col items-center gap-2">
               <Bike size={24} strokeWidth={1} />
@@ -84,10 +85,9 @@ export function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 2, delay: 1.2 }}
-            className="absolute bottom-12 flex flex-col items-center gap-4 text-white/50 mix-blend-overlay"
+            className="absolute bottom-12 flex flex-col items-center gap-4 text-white/50"
           >
-            <span className="text-xs uppercase tracking-[0.2em]">Scroll</span>
-            <div className="w-[1px] h-12 bg-white/30 animate-pulse-slow" />
+            <div className="w-[1px] h-16 bg-gradient-to-b from-white/30 to-transparent" />
           </motion.div>
         </motion.div>
       </div>
@@ -101,53 +101,15 @@ export function HeroSection() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeInRise}
-            className="mb-32"
+            className="mb-24"
           >
-            <h2 className="font-display leading-[1.1] text-foreground mb-16">
-              The Himalayas were never meant to be rushed.
+            <h2 className="font-display leading-[1.2] text-3xl md:text-5xl text-foreground mb-8 max-w-3xl mx-auto">
+              Most tourists arrive with a checklist. <br /> We operate differently.
             </h2>
+            <p className="text-secondary text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+              We provide the un-rushed expeditions and reliable machines that independent travelers need to experience the absolute reality of Spiti, Ladakh, and Zanskar. No crowded buses. No tourist traps. Just the road, the mountains, and respect.
+            </p>
           </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-32 text-left max-w-5xl mx-auto">
-            {/* Left Column - Fast travel mindset */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={fadeInRise}
-              className="space-y-6"
-            >
-              <p className="text-2xl text-foreground font-display">
-                Most people visit the mountains.
-              </p>
-              <div className="space-y-2 border-l-2 border-border pl-6">
-                <p className="text-lg text-muted-foreground">They tick a list.</p>
-                <p className="text-lg text-muted-foreground">Take a photo.</p>
-                <p className="text-lg text-muted-foreground">Upload a reel.</p>
-              </div>
-              <p className="text-xl text-muted-foreground italic">
-                Then say they've "done Spiti".
-              </p>
-            </motion.div>
-
-            {/* Right Column - The Ethereal mindset */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={fadeInRise}
-              className="space-y-6 md:mt-24"
-            >
-              <p className="text-3xl text-foreground font-display leading-[1.2]">
-                But the Himalayas don't work like that.
-              </p>
-              <div className="space-y-2 text-muted-foreground text-lg">
-                <p>They reward time.</p>
-                <p>Patience.</p>
-                <p>And people who respect them.</p>
-              </div>
-            </motion.div>
-          </div>
 
           <motion.div
             initial="hidden"
@@ -157,9 +119,9 @@ export function HeroSection() {
             className="mt-48 flex justify-center"
           >
             <Link href="/trips">
-              <span className="group relative inline-flex items-center gap-4 text-foreground text-lg tracking-wide uppercase font-sans">
+              <span className="group relative inline-flex items-center gap-4 text-foreground text-[10px] tracking-[0.3em] uppercase font-sans">
                 <span className="relative z-10 transition-transform duration-500 ease-[0.22,1,0.36,1] group-hover:-translate-x-2">
-                  Begin Your Journey
+                  Explore Expeditions
                 </span>
                 <span className="w-12 h-[1px] bg-foreground transition-all duration-500 ease-[0.22,1,0.36,1] group-hover:w-20" />
               </span>

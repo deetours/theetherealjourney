@@ -2,9 +2,8 @@
 
 import { motion } from 'framer-motion'
 import { HeroSection } from '@/components/home/hero-section'
-import { PauseSection } from '@/components/home/pause-section'
-import { ProblemSection } from '@/components/home/problem-section'
-import { RevelationSection } from '@/components/home/revelation-section'
+import { SensationalNarrative } from '@/components/home/sensational-narrative'
+import { TheCrewSection } from '@/components/home/the-crew'
 import { ProofSection } from '@/components/home/proof-section'
 import { TripsPreviewSection } from '@/components/home/trips-preview-section'
 import { FinalCTASection } from '@/components/home/final-cta-section'
@@ -26,29 +25,14 @@ export default function Home() {
       <HeroSection />
 
       {/* 
-        Macro-Whitespace implementation: 
-        Notice the py-48 (12rem) spacing. This forces users to slow down. 
+        Sensational Narrative Flow (Concept C)
+        Replaces legacy Problem, Revelation, and Pause sections with a single immersive reveal.
       */}
-      <section className="w-full py-48 px-6 bg-background">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-            className="text-4xl md:text-5xl font-display leading-[1.2] text-secondary"
-          >
-            Before Spiti became a location tag,<br />
-            <span className="text-foreground">it was just home to someone.</span>
-          </motion.p>
-        </div>
-      </section>
+      <SensationalNarrative />
 
       {/* Injecting the cinematic wrapper to all remaining legacy components */}
       <div className="relative bg-background">
-        <PauseSection />
-        <ProblemSection />
-        <RevelationSection />
+        <TheCrewSection />
         <TripsPreviewSection />
         <ProofSection />
         <FinalCTASection />

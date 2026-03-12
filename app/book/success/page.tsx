@@ -40,7 +40,7 @@ function SuccessContent() {
                     </motion.div>
 
                     <motion.span variants={fadeInRise} className="text-[10px] uppercase tracking-[0.5em] text-secondary block mb-6">
-                        Booking Confirmed
+                        Application Received
                     </motion.span>
 
                     <motion.h1 variants={fadeInRise} className="font-display text-foreground leading-tight mb-8">
@@ -52,7 +52,7 @@ function SuccessContent() {
                     </motion.p>
 
                     <motion.p variants={fadeInRise} className="text-secondary leading-relaxed mb-16">
-                        Our team will verify your payment and send a confirmation to your WhatsApp within 2 hours. If you haven't received it, just ping us.
+                        Our lead guide will review your details and contact you via WhatsApp within 2 hours with a secure payment link to confirm your slot.
                     </motion.p>
 
                     <motion.div variants={fadeInRise} className="flex flex-col md:flex-row gap-4 justify-center">

@@ -10,6 +10,65 @@ import { useParams } from 'next/navigation'
 import { ArrowLeft } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 
+const MOCK_POINTS = "0,100 15,85 30,90 50,45 65,70 85,30 100,50"
+
+function ElevationProfile() {
+  return (
+    <div className="w-full mt-24 relative border-t border-border/10 pt-16">
+      <h3 className="text-[10px] uppercase tracking-[0.3em] text-accent mb-12 text-center md:text-left decoration-transparent">Route Elevation Graphic</h3>
+      <svg viewBox="0 0 100 100" className="w-full h-48 md:h-64 overflow-visible" preserveAspectRatio="none">
+        <motion.polygon 
+          points={`0,100 ${MOCK_POINTS} 100,100`} 
+          fill="url(#mountainGrad)" 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+          viewport={{ once: true, margin: "-10%" }}
+        />
+        <motion.polyline 
+          points={MOCK_POINTS} 
+          fill="none" 
+          stroke="currentColor" 
+          strokeWidth="0.5" 
+          className="text-foreground"
+          initial={{ pathLength: 0 }}
+          whileInView={{ pathLength: 1 }}
+          transition={{ duration: 2.5, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, margin: "-10%" }}
+        />
+        {/* Animated Tracker Dot */}
+        <motion.circle
+          r="1"
+          fill="currentColor"
+          className="text-accent"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 2.5, duration: 0.5 }}
+          viewport={{ once: true }}
+        >
+            <animateMotion
+                dur="10s"
+                repeatCount="indefinite"
+                path={`M ${MOCK_POINTS.replace(/,/g, ' ')}`}
+            />
+        </motion.circle>
+
+        <defs>
+          <linearGradient id="mountainGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="currentColor" stopOpacity="0.05" className="text-accent" />
+            <stop offset="100%" stopColor="currentColor" stopOpacity="0" className="text-background" />
+          </linearGradient>
+        </defs>
+      </svg>
+      <div className="flex justify-between text-[10px] uppercase tracking-[0.2em] text-secondary mt-12 px-2 hidden sm:flex">
+         <span>Descent / Start</span>
+         <span>High Pass Traverse</span>
+         <span>Plateau Arrival</span>
+      </div>
+    </div>
+  )
+}
+
 export default function TripDetailsPage() {
   const params = useParams()
   const tripId = parseInt(params.id as string)
@@ -124,7 +183,7 @@ export default function TripDetailsPage() {
           <div>
             <h3 className="text-2xl font-bold text-foreground mb-6">Highlights</h3>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {trip.highlights.map((highlight, idx) => (
+              {trip.highlights.map((highlight: string, idx: number) => (
                 <li key={idx} className="flex items-start">
                   <span className="text-accent mr-4 font-bold text-lg">•</span>
                   <span className="text-secondary">{highlight}</span>
@@ -132,6 +191,8 @@ export default function TripDetailsPage() {
               ))}
             </ul>
           </div>
+
+          <ElevationProfile />
         </motion.div>
       </section>
 
@@ -148,7 +209,7 @@ export default function TripDetailsPage() {
             Day by Day
           </h2>
           <div className="space-y-6">
-            {trip.itinerary.map((item, idx) => (
+            {trip.itinerary.map((item: any, idx: number) => (
               <motion.div
                 key={idx}
                 className="border-l-4 border-accent pl-6 py-4"
@@ -179,7 +240,7 @@ export default function TripDetailsPage() {
             <div>
               <h3 className="text-2xl font-bold text-foreground mb-6">What's Included</h3>
               <ul className="space-y-3">
-                {trip.whatIncluded.map((item, idx) => (
+                {trip.whatIncluded.map((item: string, idx: number) => (
                   <li key={idx} className="flex items-start">
                     <span className="text-accent mr-3 font-bold">✓</span>
                     <span className="text-secondary">{item}</span>
@@ -190,7 +251,7 @@ export default function TripDetailsPage() {
             <div>
               <h3 className="text-2xl font-bold text-foreground mb-6">What to Bring</h3>
               <ul className="space-y-3">
-                {trip.whatToBring.map((item, idx) => (
+                {trip.whatToBring.map((item: string, idx: number) => (
                   <li key={idx} className="flex items-start">
                     <span className="text-accent mr-3 font-bold">•</span>
                     <span className="text-secondary">{item}</span>

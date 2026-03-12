@@ -3,10 +3,11 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Navigation } from '@/components/navigation'
 import { Footer } from '@/components/footer'
 import { useInView } from 'react-intersection-observer'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Clock, Mountain, Activity } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 
 type Trip = {
@@ -20,25 +21,52 @@ type Trip = {
 }
 
 export default function TripsPage() {
+  const router = useRouter()
   const [trips, setTrips] = useState<Trip[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     async function fetchTrips() {
-      const { data, error } = await supabase
-        .from('trips')
-        .select('*')
-        .order('id')
+      try {
+        const { data, error } = await supabase
+          .from('trips')
+          .select('*')
+          .order('id')
 
-      if (data) {
-        setTrips(data)
-      } else if (error) {
-        console.error('Error fetching trips:', error)
+        if (data && data.length > 0) {
+          setTrips(data)
+        } else {
+          setTrips(fallbackTrips) // Silent fallback
+        }
+      } catch (e) {
+        setTrips(fallbackTrips) // Silent fallback
+      } finally {
+        setLoading(false)
       }
-      setLoading(false)
     }
     fetchTrips()
   }, [])
+
+  const fallbackTrips: Trip[] = [
+    {
+      id: 1,
+      title: 'Spiti Valley Circuit',
+      description: 'The definitive high-altitude desert crossing. Monasteries, water crossings, and the absolute reality of the Himalayas.',
+      shortDesc: 'The Ultimate High-Altitude Test',
+      difficulty: 'Challenging',
+      duration: '10 Days',
+      altitude: '4,270m'
+    },
+    {
+      id: 2,
+      title: 'Zanskar Expedition',
+      description: 'Venture into the heart of Zanskar where few riders go. Raw dirt tracks and deep Himalayan isolation.',
+      shortDesc: 'Deep Himalayan Isolation',
+      difficulty: 'Expert',
+      duration: '14 Days',
+      altitude: '4,500m'
+    }
+  ]
 
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -102,57 +130,46 @@ export default function TripsPage() {
               <motion.div
                 key={trip.id}
                 variants={itemVariants}
-                className="group cursor-pointer"
+                className="group cursor-pointer block"
+                onClick={() => router.push(`/trips/${trip.id}`)}
               >
-                <Link href={`/trips/${trip.id}`}>
-                  <div className="h-full border border-border rounded overflow-hidden hover:border-accent/50 transition-colors bg-muted/5 flex flex-col">
-                    {/* Image placeholder */}
-                    <div className="aspect-video bg-gradient-to-br from-accent/15 to-secondary/10 flex items-center justify-center relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/10"></div>
-                      <span className="text-6xl text-accent/20 relative z-10">↗</span>
+                <div className="border-b-2 border-border pb-8 hover:border-accent transition-colors duration-500 flex flex-col h-full">
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-accent mb-4 block">
+                    {trip.shortDesc}
+                  </span>
+
+                  <h3 className="text-3xl md:text-4xl font-display text-foreground mb-6 leading-tight group-hover:text-accent transition-colors duration-500">
+                    {trip.title}
+                  </h3>
+
+                  <p className="text-secondary text-base md:text-lg leading-relaxed mb-12 flex-grow">
+                    {trip.description}
+                  </p>
+
+                  <div className="space-y-3 mb-10 w-full max-w-xs">
+                    <div className="flex justify-between items-center border-b border-border/30 pb-2">
+                      <span className="text-xs uppercase tracking-[0.2em] text-secondary">Duration</span>
+                      <span className="text-sm font-medium text-foreground">{trip.duration}</span>
                     </div>
-
-                    {/* Content */}
-                    <div className="p-8 flex flex-col flex-grow">
-                      <h3 className="text-2xl font-bold text-foreground mb-3 leading-tight">
-                        {trip.title}
-                      </h3>
-                      <p className="text-sm text-accent font-medium mb-4">
-                        {trip.shortDesc}
-                      </p>
-                      <p className="text-secondary text-sm leading-relaxed mb-6 flex-grow">
-                        {trip.description}
-                      </p>
-
-                      {/* Trip Details */}
-                      <div className="flex flex-wrap gap-3 mb-6">
-                        <span className="text-xs bg-accent/10 text-accent px-3 py-1 rounded">
-                          {trip.duration}
-                        </span>
-                        <span className="text-xs bg-secondary/10 text-secondary px-3 py-1 rounded">
-                          {trip.altitude}
-                        </span>
-                        <span className="text-xs bg-muted text-muted-foreground px-3 py-1 rounded">
-                          {trip.difficulty}
-                        </span>
-                      </div>
-
-                      {/* CTA */}
-                      <div className="flex items-center gap-4 flex-wrap">
-                        <div className="flex items-center text-accent font-medium text-sm group-hover:gap-2 transition-all gap-1">
-                          Explore <ArrowRight size={16} />
-                        </div>
-                        <a
-                          href={`/inquire?trip=${trip.id}`}
-                          onClick={e => e.stopPropagation()}
-                          className="text-xs text-secondary border border-border/50 px-3 py-1.5 hover:border-accent hover:text-accent transition-colors"
-                        >
-                          Ask Tej →
-                        </a>
-                      </div>
+                    <div className="flex justify-between items-center border-b border-border/30 pb-2">
+                      <span className="text-xs uppercase tracking-[0.2em] text-secondary">Altitude</span>
+                      <span className="text-sm font-medium text-foreground">{trip.altitude}</span>
+                    </div>
+                    <div className="flex justify-between items-center border-b border-border/30 pb-2">
+                      <span className="text-xs uppercase tracking-[0.2em] text-secondary">Difficulty</span>
+                      <span className="text-sm font-medium text-foreground">{trip.difficulty}</span>
                     </div>
                   </div>
-                </Link>
+
+                  <div className="flex items-center justify-between mt-auto">
+                    <div className="flex items-center text-[11px] uppercase tracking-[0.2em] text-foreground group-hover:text-accent transition-colors">
+                      Explore Journey
+                    </div>
+                    <span className="text-accent opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500">
+                      →
+                    </span>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>

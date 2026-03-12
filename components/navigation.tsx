@@ -37,8 +37,8 @@ export function Navigation() {
   return (
     <>
       <motion.nav
-        className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-700 ease-[0.22,1,0.36,1] ${isScrolled || isOpen
-          ? 'bg-background/90 backdrop-blur-xl border-b border-border/50 py-4'
+        className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-1000 ease-[0.22,1,0.36,1] ${isScrolled || isOpen
+          ? 'bg-background/70 backdrop-blur-2xl border-b border-border/20 py-4 shadow-sm'
           : 'bg-transparent py-8'
           }`}
         initial={{ y: -100 }}

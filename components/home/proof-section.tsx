@@ -59,16 +59,7 @@ export function ProofSection() {
               animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
               transition={{ duration: 0.8, delay: index * 0.15 }}
             >
-              {/* Topographic Background Graphic */}
-              <div className="absolute right-0 top-0 bottom-0 w-1/2 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity duration-1000 origin-center pointer-events-none flex items-center justify-end">
-                <svg width="100%" height="80%" viewBox="0 0 100 100" preserveAspectRatio="xMaxYMax slice" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M-10,30 Q25,5 50,30 T110,30" stroke="currentColor" fill="none" strokeWidth="0.5" />
-                  <path d="M-10,40 Q25,15 50,40 T110,40" stroke="currentColor" fill="none" strokeWidth="0.5" />
-                  <path d="M-10,50 Q25,25 50,50 T110,50" stroke="currentColor" fill="none" strokeWidth="0.5" />
-                  <path d="M-10,60 Q25,35 50,60 T110,60" stroke="currentColor" fill="none" strokeWidth="0.5" />
-                  <path d="M-10,70 Q25,45 50,70 T110,70" stroke="currentColor" fill="none" strokeWidth="0.5" />
-                </svg>
-              </div>
+              {/* Topographic Graphic Removed for UI Clarity */}
 
               <blockquote className="mb-8 relative z-10">
                 <p className="text-4xl md:text-5xl font-display leading-tight text-foreground mb-8">
